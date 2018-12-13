@@ -1,0 +1,18 @@
+body{background:#d0d0d0}
+#main{
+	position:fixed;top:5em;left:0;right:0;bottom:0;
+	overflow:scroll;
+}
+.bulbs .column{
+	text-align: center;
+}
+.bulbs .on{color:#ecec6a}
+.label{color:#eee}
+.command{background:#b4b4b4;padding:1rem 2rem;font-size:larger}
+.command.active{
+	border:solid 1px #eee;box-shadow: 0 0 5px #fff;background:#ccc;
+}
+.command.active .label{
+	color:#333;
+
+}

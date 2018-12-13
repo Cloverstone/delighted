@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Adam Smallcomb">
+    <link rel="icon" href="./assets/favicon.png">
+
+    <title>DeLighted</title>
+    <link rel="stylesheet" href="./assets/css/normalize.css">    
+    <link rel="stylesheet" href="./assets/css/gform.css">
+    <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+  </head>
+  <body>
+    <div style="position:fixed;top:0;left:0;right:0;height:5em">
+      <div class="row ">
+        <div class="column">Next</div>
+
+        <div class="column">Manual</div>
+      </div>    
+    </div>
+
+    <div id="main">
+ 
+    </div>
+    
+    <script src="./assets/js/lodash.min.js"></script>    
+    <script src='./assets/js/gform.min.js'></script> 
+    <script src='./assets/js/gform.theme.js'></script>
+    <script src='./assets/js/ractive.min.js'></script>
+    <script>
+    
+    myractive = new Ractive({el: document.getElementById('main'),template:`
+    {{#items}}
+    <div class="container command {{#if @index == 0}}active{{/if}}">
+          <div class="row ">
+            <div class="column-full label">{{label}}</div>
+          </div>
+          <div class="row bulbs">
+            {{#states}}
+            <div class="column"><i class="fa fa-circle-o {{#.}}fa-circle on{{/.}}"></i></div>
+            {{/states}}
+          </div>
+        </div>
+        {{/items}}
+      `, data: {items:[
+      {label:'Christmas Tree',states:[0,0,0,0,1,1,0,1]},
+      {label:'second',states:[0,0,1,0,0,1,0,0]}
+      ]}/*, partials: this.partials*/});
+
+    </script>
+   </body>
+</html>
