@@ -1,4 +1,7 @@
 body{background:#d0d0d0}
+
+#header{position:fixed;top:0;left:0;right:0;height:5em}
+#header .column{text-align: center;padding: .9em;font-size: 22px;border: solid 1px;}
 #main{
 	position:fixed;top:5em;left:0;right:0;bottom:0;
 	overflow:scroll;
@@ -8,9 +11,9 @@ body{background:#d0d0d0}
 }
 .bulbs .on{color:#ecec6a}
 .label{color:#eee}
-.command{background:#b4b4b4;padding:1rem 2rem;font-size:larger}
+.command{border:solid 1px #aaa;background:#b4b4b4;padding:1rem 2rem;font-size:larger}
 .command.active{
-	border:solid 1px #eee;box-shadow: 0 0 5px #fff;background:#ccc;
+	border:solid 1px #eee;z-index:1;box-shadow: 0 0 5px #fff;background:#ccc;
 }
 .command.active .label{
 	color:#333;

@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="./assets/css/style.css">
   </head>
   <body>
-    <div style="position:fixed;top:0;left:0;right:0;height:5em">
-      <div class="row ">
-        <div class="column">Next</div>
+    <div id="header">
+      <div class="row">
+        <div class="column"><div class="button" id="next">Next</div></div>
 
         <div class="column">Manual</div>
       </div>    
@@ -31,10 +31,20 @@
     <script src='./assets/js/gform.theme.js'></script>
     <script src='./assets/js/ractive.min.js'></script>
     <script>
-    
+    mydata = {index:0,items:[
+      {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+      {label:'Christmas Tree',states:[0,0,0,0,1,1,0,1]},
+      {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+      {label:'Stuff',states:[0,0,1,0,0,1,0,0]},
+      {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+      {label:'second',states:[1,0,1,1,0,1,0,0]},
+      {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+      {label:'second',states:[1,0,1,1,0,1,0,0]},
+      {label:'All Off',states:[0,0,0,0,0,0,0,0]}
+      ]};
     myractive = new Ractive({el: document.getElementById('main'),template:`
     {{#items}}
-    <div class="container command {{#if @index == 0}}active{{/if}}">
+    <div class="container command {{#if @index == index}}active{{/if}}">
           <div class="row ">
             <div class="column-full label">{{label}}</div>
           </div>
@@ -45,11 +55,17 @@
           </div>
         </div>
         {{/items}}
-      `, data: {items:[
-      {label:'Christmas Tree',states:[0,0,0,0,1,1,0,1]},
-      {label:'second',states:[0,0,1,0,0,1,0,0]}
-      ]}/*, partials: this.partials*/});
-
+      `, data: mydata/*, partials: this.partials*/});
+         document.querySelector('#next').addEventListener('click', function(e){
+                // this.pub('cancel', this, e)}.bind(this)
+                debugger;
+                
+                // mydata.index = ||0;
+                mydata.index++ 
+                if(mydata.index >= mydata.items.length){mydata.index = 0}
+                myractive.set(mydata);
+                
+         })
     </script>
    </body>
 </html>
