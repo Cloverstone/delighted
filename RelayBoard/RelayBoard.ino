@@ -11,11 +11,8 @@ void setup() {
   for (int i=0; i<sizeof pins/sizeof pins[0]; i++) {
     pinMode(pins[i], OUTPUT);
         digitalWrite(pins[i],HIGH);
-
   }
 }
-
-
 
 void execute(String inputString) {
  
@@ -31,12 +28,28 @@ void execute(String inputString) {
 
   }
   
-  if(inputString.startsWith("A")){    
+  if(inputString.startsWith("L")){    
     int relay = inputString.substring(1,2).toInt();
-    digitalWrite(relay,LOW);
+    digitalWrite(pins[relay],LOW);
+
+  }  
+  if(inputString.startsWith("H")){    
+    int relay = inputString.substring(1,2).toInt();
+    digitalWrite(pins[relay],HIGH);
 
   }
 
+  if(inputString.startsWith("a")){    
+    for(int i = 0;i<8;i++){
+      if(inputString.substring(i+1,i+2) == "L"){
+        digitalWrite(pins[i],HIGH);
+      }else{
+        digitalWrite(pins[i],LOW);
+      }
+    }
+    
+
+  }
 
 }
 

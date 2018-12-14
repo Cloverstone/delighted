@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Adam Smallcomb">
+    <link rel="icon" href="./assets/favicon.png">
+
+    <title>DeLighted</title>
+    <link rel="stylesheet" href="./assets/css/normalize.css">    
+    <link rel="stylesheet" href="./assets/css/gform.css">
+    <!-- <link rel="stylesheet" href="./assets/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <!-- <link href="https://pro-next.fontawesome.com/releases/v5.6.1/css/all.css" data-prerender="keep" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+  </head>
+  <body>
+    <div id="header">
+      <div class="row">
+        <div class="column" id="next">Next</div>
+
+        <div class="column" id="manual">Manual</div>
+      </div>    
+    </div>
+
+    <div id="main">
+ 
+    </div>
+    
+    <script type='text/javascript' src="./assets/js/lodash.min.js"></script>    
+    <script type='text/javascript' src='./assets/js/gform.min.js'></script> 
+    <script type='text/javascript' src='./assets/js/gform.theme.js'></script>
+    <script type='text/javascript' src='./assets/js/ractive.min.js'></script>
+    <script type='text/javascript' src='./assets/js/jquery.min.js'></script>
+
+    <script>
+ 
+    mydata = {states:[],index:0,manual:false,
+      outlets: [
+        {icon:"fa-building",label:"Walls"},
+        {icon:"fa-tree",label:"Tree"},
+        {icon:"fa-road",label:"Graland"},
+        {icon:"fa-fire",label:"Fireplace"},
+        {icon:"fa-cross",label:"Cross"},
+        {icon:"fa-torii-gate",label:"Manger"},
+        {icon:"fa-star",label:"Star"},
+        {icon:"fa-globe",label:"Star Globe"},
+      ],items:[
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'Christmas Lights',states:[1,1,1,1,0,0,0,0]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'Christmas tree lights',states:[0,1,0,0,0,0,0,0]},
+        {label:'Lights along streets',states:[0,1,1,0,0,0,0,0]},
+        {label:'Buildings',states:[1,1,1,0,0,0,0,0]},
+        {label:'Homes',states:[1,1,1,1,0,0,0,0]},
+        {label:'perfect gift',states:[1,1,1,1,1,0,0,0]},
+        {label:'formless and empty',states:[0,0,0,0,0,0,0,0]},
+        {label:'“Let there be light',states:[0,0,0,0,0,0,1,1]},
+        {label:'separated the light from darkness',states:[0,0,0,0,0,0,0,0]},
+        {label:'separated from darkness (half on)',states:[1,1,1,1,0,0,0,0]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'live in the light',states:[1,1,1,1,1,0,0,1]},
+        {label:'All Off I think',states:[0,0,0,0,0,0,0,0]},
+
+        {label:'That’s why nightlights',states:[0,0,0,0,0,0,1,0]},
+
+        {label:'darkness can be terrifying',states:[0,0,0,0,0,0,0,0]},
+        {label:'His great light',states:[0,0,0,0,1,0,0,0]},
+        {label:'sun light is not guaranteed here',states:[0,0,0,0,1,0,0,1]},
+        {label:'walking in darkness',states:[0,0,0,0,0,0,0,0]},
+        {label:'true light of the world',states:[0,0,0,0,0,0,1,1]},
+        {label:'Jesus the true light',states:[0,1,1,1,0,0,1,1]},
+        {label:'doubts and unbelief',states:[1,1,1,1,0,0,1,1]},
+        {label:'illuminate our spiritual darkness',states:[1,1,1,1,1,1,1,1]},
+        {label:'walk in the light or darkness',states:[0,0,0,0,0,0,0,0]},
+        {label:'led by light within creation',states:[0,0,0,0,0,0,0,1]},
+        {label:'count the stars',states:[0,0,0,0,0,0,1,1]},
+        {label:'from within a bush',states:[0,1,0,0,0,0,1,1]},
+        {label:'pillar of fire to give them LIGHT',states:[1,1,0,0,0,0,1,1]},
+        {label:'Lord is a consuming fire',states:[1,1,0,1,0,0,1,1]},
+        {label:'feet and a light on my path',states:[1,1,1,1,0,0,1,1]},
+        {label:'God’s people saw a great light',states:[1,1,1,1,0,1,1,1]},
+        {label:'Jesus dying on the cross',states:[1,1,1,1,1,1,1,1]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'Christmas Lights',states:[1,1,1,1,0,0,0,0]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'our own spiritual darkness.',states:[0,0,0,0,1,0,0,0]},
+        {label:'Jesus who came into our world.',states:[0,0,0,0,1,1,0,0]},
+        {label:'for your light has come',states:[0,0,0,0,0,1,0,0]},
+        {label:'LORD rises upon you',states:[0,0,0,0,0,0,0,0]},
+        {label:'LORD rises upon you',states:[0,0,0,0,0,0,1,0]},
+        {label:'brightness of your dawn',states:[0,0,0,0,0,0,0,0]},
+        {label:'I will turn the tree on for us',states:[0,1,0,0,0,0,0,0]},
+        {label:'a little fireside chat',states:[0,1,0,1,0,0,0,0]},
+        {label:'to drop our weapons and offer love',states:[0,1,1,1,0,0,0,0]},
+        {label:'focusing on what unites',states:[1,1,1,1,0,0,0,0]},
+        {label:'world living in the dark',states:[0,0,0,0,0,0,0,0]},
+        {label:'unity to both sides',states:[1,0,0,0,0,0,0,0]},
+        {label:'cleanse and forgive our sin',states:[1,0,0,0,1,0,0,0]},
+        {label:'Let’s enter that first Christmas night!',states:[0,0,0,0,0,0,0,0]},
+        {label:'watch over their flocks at night.',states:[0,0,0,0,0,0,1,0]},
+        {label:'An angel of the Lord',states:[0,0,0,0,0,0,1,1]},
+        {label:'lying in a manger',states:[0,0,0,0,0,1,1,1]},
+        {label:'heavenly host appeared',states:[1,1,1,1,0,1,1,1]},
+        {label:'His Gospel is that of peace',states:[0,0,0,0,0,0,0,0]},
+        {label:'Christmas Lights',states:[1,1,1,1,0,0,0,0]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'Jesus is our source of light',states:[0,0,0,0,0,0,1,1]},
+        {label:'',states:[0,0,0,0,0,0,0,0]},
+        {label:'',states:[0,0,0,0,0,0,0,0]},
+        {label:'',states:[0,0,0,0,0,0,0,0]},
+        {label:'',states:[0,0,0,0,0,0,0,0]},
+        {label:'',states:[0,0,0,0,0,0,0,0]},
+
+
+        {label:'Final All Off',states:[0,0,0,0,0,0,0,0]}
+      ]};
+    myractive = new Ractive({el: document.getElementById('main'),template:`
+    {{#manual}}
+    <div id="button-list">
+    {{#outlets}}
+    <div class="row bulbs{{#if states[@index].state}} on{{/if}}" on-click="toggle" data-index="{{@index}}" >
+        <div class="column"><i class="fa {{icon}} {{#if states[@index].state}} on{{/if}}"></i>&nbsp;{{label}}</div>
+      </div>
+      
+    {{/outlets}}
+    </div>
+    {{/manual}}
+
+    {{#items}}
+    <div on-click="activate" data-index="{{@index}}" class="container command {{#if @index == index}}active{{/if}}">
+      <div class="row ">
+        <div class="column-full label">{{label}}</div>
+      </div>
+      <div class="row bulbs">
+        {{#states}}
+        <div class="column"><i class="fa {{outlets[@index].icon}} {{#.}} on{{/.}}"></i></div>
+        {{/states}}
+      </div>
+    </div>
+    
+    {{/items}}
+  `, data: mydata/*, partials: this.partials*/});
+
+
+      myractive.on({
+        activate: function ( event ) {
+          updateIndex(parseInt(event.node.dataset.index));
+        },        
+        toggle: function ( event ) {
+
+            mydata.states[parseInt(event.node.dataset.index)].state = mydata.states[parseInt(event.node.dataset.index)].state?0:1;
+ 
+        updateBoard();
+        myractive.set(mydata);
+
+
+          // updateIndex(parseInt(event.node.dataset.index));
+        }
+      })
+      function updateBoard(){
+        var temp = gform.renderString('a{{#states}}{{#state}}H{{/state}}{{^state}}L{{/state}}{{/states}}=', mydata)
+        // gform.ajax({path: '/?message='+temp, success:function(data) {}.bind(this)})
+
+      }
+      function updateIndex(newIndex){
+        mydata.index = newIndex;
+        if(mydata.index >= mydata.items.length){mydata.index = 0;main.style.top = startTop+'px';}
+
+        mydata.states = _.map(mydata.items[mydata.index].states,function(i,j){
+          return {state:i,index:''+j}
+        })
+        updateBoard();
+
+        myractive.set(mydata);
+        center();
+
+      }
+      document.querySelector('#next').addEventListener('click', function(e){
+        updateIndex(++mydata.index)
+      })      
+      document.querySelector('#manual').addEventListener('click', function(e){
+        mydata.manual = !mydata.manual;
+        myractive.set(mydata);
+      })
+      // states = []
+
+  main =document.querySelector('#main')
+  startTop = main.offsetTop;
+      updateIndex(0);
+
+function center(){
+  var active =document.querySelector('.active')
+  if((active.offsetTop+(4*active.offsetHeight)+main.offsetTop) > window.innerHeight){
+
+    main.style.top = (main.offsetTop - active.offsetHeight)+'px';
+
+  }
+// debugger;
+//   if(active.offsetTop-(active.offsetHeight)+main.offsetTop < startTop){
+
+//     main.style.top = active.offsetTop+(active.offsetHeight)+main.offsetTop+'px';
+
+//   }
+
+
+}
+
+    </script>
+   </body>
+</html>

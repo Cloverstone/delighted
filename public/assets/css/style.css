@@ -1,0 +1,61 @@
+body{background:#d0d0d0;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+}
+
+#header{position:fixed;top:0;left:0;right:0;height:5em;z-index:1}
+#header .column{text-align: center;padding: 1em;font-size: 22px;font-weight:bold}
+#main{
+	position:fixed;top:5em;left:0;right:0;bottom:0;
+	/* overflow:scroll; */
+}
+.bulbs .column{
+	text-align: center;
+}
+.bulbs .on{color:#ecec6a}
+.label{color:#eee}
+.command{border:solid 1px #aaa;background:#b4b4b4;padding:1rem 2rem;font-size:larger}
+.command.active{
+	border:solid 1px #eee;z-index:1;box-shadow: 0 0 5px #fff;background:#ccc;
+}
+.command.active .label{
+	color:#333;
+
+}
+#next{
+	background:#99da99
+}
+#manual{
+	background:#da99a4
+}
+
+#button-list{
+	position: fixed;
+    top: 5.1em;
+		right: 0;
+		z-index: 10;
+}
+#button-list .bulbs{
+/* width:10em; */
+width: 20em;
+    border: solid 1px;
+		padding: 1.4em;
+		background:#333;
+		
+}
+#button-list .bulbs .column{
+text-align: left;
+margin-left: 3em;
+color:#78838c;
+}
+#button-list .bulbs.on .column{
+
+	color:#eee;
+	}
+	#button-list .bulbs.on{
+	background:#666;
+}
