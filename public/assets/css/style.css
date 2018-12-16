@@ -13,6 +13,14 @@ body{background:#d0d0d0;
 	position:fixed;top:5em;left:0;right:0;bottom:0;
 	/* overflow:scroll; */
 }
+#main .edit{
+	overflow:scroll; 
+	position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
 .bulbs .column{
 	text-align: center;
 }
@@ -32,6 +40,10 @@ body{background:#d0d0d0;
 #manual{
 	background:#da99a4
 }
+#edit{
+	background:#99bbda
+}
+
 
 #button-list{
 	position: fixed;

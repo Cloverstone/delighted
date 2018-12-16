@@ -3,7 +3,7 @@ const SerialPort = require('serialport');
 // const Readline = //require('@serialport/parser-readline');
 const app = express();
 const port = 8000;
-const myport = new SerialPort('/dev/tty.usbmodem1421', { baudRate: 9600 });
+const myport = new SerialPort('/dev/tty.usbserial-DN02SSVX', { baudRate: 9600 });
 const parser = myport.pipe(new SerialPort.parsers.Readline({ delimiter: '\n' }));
 
 // Read the port data

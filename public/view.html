@@ -19,8 +19,9 @@
   <body>
     <div id="header">
       <div class="row">
-        <div class="column" id="next">Next</div>
+        <div class="column-50 column" id="next">Next</div>
 
+        <div class="column" id="edit">Edit</div>
         <div class="column" id="manual">Manual</div>
       </div>    
     </div>
@@ -37,7 +38,7 @@
 
     <script>
  
-    mydata = {states:[],index:0,manual:false,
+    mydata = {states:[],index:0,edit:false,manual:false,
       outlets: [
         {icon:"fa-building",label:"Walls"},
         {icon:"fa-tree",label:"Tree"},
@@ -48,6 +49,7 @@
         {icon:"fa-star",label:"Star"},
         {icon:"fa-globe",label:"Star Globe"},
       ],items:[
+        {label:'Service',states:[1,1,1,1,1,0,0,0]},
         {label:'All Off',states:[0,0,0,0,0,0,0,0]},
         {label:'Christmas Lights',states:[1,1,1,1,0,0,0,0]},
         {label:'All Off',states:[0,0,0,0,0,0,0,0]},
@@ -59,10 +61,10 @@
         {label:'formless and empty',states:[0,0,0,0,0,0,0,0]},
         {label:'“Let there be light',states:[0,0,0,0,0,0,1,1]},
         {label:'separated the light from darkness',states:[0,0,0,0,0,0,0,0]},
-        {label:'separated from darkness (half on)',states:[1,1,1,1,0,0,0,0]},
+        {label:'separated from darkness (half on)',states:[0,1,0,0,0,1,0,0]},
         {label:'All Off',states:[0,0,0,0,0,0,0,0]},
         {label:'live in the light',states:[1,1,1,1,1,0,0,1]},
-        {label:'All Off I think',states:[0,0,0,0,0,0,0,0]},
+        // {label:'All Off I think',states:[0,0,0,0,0,0,0,0]},
 
         {label:'That’s why nightlights',states:[0,0,0,0,0,0,1,0]},
 
@@ -108,16 +110,20 @@
         {label:'Christmas Lights',states:[1,1,1,1,0,0,0,0]},
         {label:'All Off',states:[0,0,0,0,0,0,0,0]},
         {label:'Jesus is our source of light',states:[0,0,0,0,0,0,1,1]},
-        {label:'',states:[0,0,0,0,0,0,0,0]},
-        {label:'',states:[0,0,0,0,0,0,0,0]},
-        {label:'',states:[0,0,0,0,0,0,0,0]},
-        {label:'',states:[0,0,0,0,0,0,0,0]},
-        {label:'',states:[0,0,0,0,0,0,0,0]},
+        {label:'“I am the light of the world',states:[0,0,1,0,0,0,1,1]},
+        {label:'have the light of life”',states:[0,0,1,0,1,0,1,1]},
+        {label:'be the light to others',states:[1,0,1,0,1,0,1,1]},
+        {label:'Father who is in heaven',states:[1,1,1,0,1,0,1,1]},
+        {label:'Walk as children of the light',states:[1,1,1,1,1,0,1,1]},
+        {label:'All Off',states:[0,0,0,0,0,0,0,0]},
+        {label:'(imediately)',states:[0,0,0,0,0,1,0,0]},
+        {label:'forgiveness, and reconciliation (Final All Off)',states:[0,0,0,0,0,0,0,0]},
+        {label:'all is bright',states:[1,1,1,1,1,1,1,1]}
 
-
-        {label:'Final All Off',states:[0,0,0,0,0,0,0,0]}
+        
       ]};
     myractive = new Ractive({el: document.getElementById('main'),template:`
+    <div {{#edit}}class="edit"{{/}}>
     {{#manual}}
     <div id="button-list">
     {{#outlets}}
@@ -138,31 +144,49 @@
         {{#states}}
         <div class="column"><i class="fa {{outlets[@index].icon}} {{#.}} on{{/.}}"></i></div>
         {{/states}}
+        {{#edit}}        <div class="column column-25"><i class="fa fa-edit" on-click="edit" data-index="{{@index}}"></i> <i on-click="remove" data-index="{{@index}}" class="fa fa-times"></i></div>{{/}}
       </div>
     </div>
     
     {{/items}}
+    </div>
   `, data: mydata/*, partials: this.partials*/});
 
 
       myractive.on({
         activate: function ( event ) {
-          updateIndex(parseInt(event.node.dataset.index));
-        },        
+          if(!mydata.edit) {
+            updateIndex(parseInt(event.node.dataset.index));
+          }
+        },
+        edit: function ( event ) {
+          // var newData = _.extend({},mydata.items[parseInt(event.node.dataset.index)])
+          var fields = [{name:"label","label":'Label',type:"text"},{type:'fieldset','name':'states', 'label':'Outlets',fields:_.map(mydata.outlets, function(item,i){
+            item.name = ''+i;
+            item.options = [0,1];
+            return item;
+          })},{type:'save'}]
+
+          var myform = new gform({legend:'Update Item',data:mydata.items[parseInt(event.node.dataset.index)],default:{type:'checkbox',options:[0,1]},fields:fields})
+          myform.sub('save',function(form){
+            var results = form.toJSON();
+            results.states = _.values(results.states);
+            mydata.items[parseInt(event.node.dataset.index)] = results;
+            myractive.set(mydata);
+          })
+        },
+        remove: function ( event ) {
+
+        },    
         toggle: function ( event ) {
-
-            mydata.states[parseInt(event.node.dataset.index)].state = mydata.states[parseInt(event.node.dataset.index)].state?0:1;
- 
-        updateBoard();
-        myractive.set(mydata);
-
-
-          // updateIndex(parseInt(event.node.dataset.index));
+          mydata.states[parseInt(event.node.dataset.index)].state = mydata.states[parseInt(event.node.dataset.index)].state?0:1;
+          updateBoard();
+          myractive.set(mydata);
         }
       })
       function updateBoard(){
         var temp = gform.renderString('a{{#states}}{{#state}}H{{/state}}{{^state}}L{{/state}}{{/states}}=', mydata)
-        // gform.ajax({path: '/?message='+temp, success:function(data) {}.bind(this)})
+        gform.ajax({path: '/?message='+temp, success:function(data) {}.bind(this)})
 
       }
       function updateIndex(newIndex){
@@ -185,8 +209,13 @@
         mydata.manual = !mydata.manual;
         myractive.set(mydata);
       })
-      // states = []
+      document.querySelector('#edit').addEventListener('click', function(e){
+                mydata.edit = !mydata.edit;
+        myractive.set(mydata);
+         main.style.top = startTop+'px';
 
+      })      
+      // states = []
   main =document.querySelector('#main')
   startTop = main.offsetTop;
       updateIndex(0);
@@ -194,9 +223,7 @@
 function center(){
   var active =document.querySelector('.active')
   if((active.offsetTop+(4*active.offsetHeight)+main.offsetTop) > window.innerHeight){
-
     main.style.top = (main.offsetTop - active.offsetHeight)+'px';
-
   }
 // debugger;
 //   if(active.offsetTop-(active.offsetHeight)+main.offsetTop < startTop){
